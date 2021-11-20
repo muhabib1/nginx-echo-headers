@@ -2,12 +2,12 @@ trigger:
 - master
 
 pool:
-  vmImage: ubuntu-latest
+  dva-self-hosted: vmdvadagntsnd01
 
 steps:
 - task: Docker@2
   inputs:
-    containerRegistry: 'acr-connection'
+    containerRegistry: 'snd-registry'
     repository: 'nginx-echo-headers'
     command: 'buildAndPush'
     Dockerfile: 'Dockerfile'
@@ -15,10 +15,10 @@ steps:
 - task: Kubernetes@1
   inputs:
     connectionType: 'Azure Resource Manager'
-    azureSubscriptionEndpoint: 'kyndryl-test'
-    azureResourceGroup: 'rg-azr-dva-aks-snd-001'
-    kubernetesCluster: 'aks-azr-dva-snd-001'
-    namespace: 'mpi-snd'
+    azureSubscriptionEndpoint: 'new-uat-test'
+    azureResourceGroup: 'rg-azr-dva-aks-uat-001'
+    kubernetesCluster: 'aks-azr-dva-uat-001'
+    namespace: 'mpi-uat'
     command: 'apply'
     arguments: '-f deploy.yaml'
     secretType: 'dockerRegistry'
