@@ -8,3 +8,5 @@ spec:
     image: acrazrdvasnd001.azurecr.io/nginx-echo-headers:latest
   imagePullSecrets:
   - name: acrcred
+  nodeSelector:
+    "beta.kubernetes.io/os": linux
